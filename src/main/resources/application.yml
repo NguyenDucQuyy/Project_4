@@ -1,0 +1,115 @@
+spring:
+  application:
+    name: project_4-restaurant-service
+  cloud:
+    compatibility-verifier:
+      enabled: false
+  servlet:
+    multipart:
+      max-file-size: ${SERVLET_MULTIPART_MAX_FILE_SIZE:10MB}
+      max-request-size: ${SERVLET_MULTIPART_MAX_REQUEST_SIZE:20MB}
+  security:
+    user:
+      password: abc
+    jwt:
+      secret-key: ${JWT_SECRET_KEY:xyz}
+      access-token-expired-ms: ${JWT_ACCESS_TOKEN_EXPIRED_MS:3600000} # 1 day
+      refresh-token-expired-ms: ${JWT_REFRESH_TOKEN_EXPIRED_MS:2592000000} # 30 dat
+    recaptcha:
+      enable: ${RECAPTCHA_ENABLE:false}
+      secret: ${RECAPTCHA_SECRET:xyz}
+      url: ${RECAPTCHA_URL:http://localhost:8080}
+  threads:
+    virtual:
+      enabled: ${THREAD_VIRTUAL_ENABLE:true}
+  redis:
+    redisson:
+      file: classpath:redisson.yml
+  data:
+    mongodb:
+      uri: ${MONGO_URI}
+      auto-index-creation: true
+    web:
+      pageable:
+        size-parameter: size
+        page-parameter: page
+        default-page-size: ${SIZE:20}
+        max-page-size: ${MAX_PAGE_SIZE:100}
+      sort:
+        sort-parameter: sort
+server:
+  port: ${PORT:8080}
+  error:
+    include-stacktrace: ON_PARAM
+  timeoutSlowApi: ${SERVER_TIMEOUT_SLOW_API:100}
+logging:
+  level:
+    org.springframework.web: ${LOG_LEVEL:info}
+    com.wiinvent.vnta: ${LOG_LEVEL:info}
+    org.hibernate.orm.jdbc.bind: ${HIBERNATE_BIND_LOGGING:off}
+management:
+  endpoints:
+    web:
+      base-path: /v1/it/booking/monitor
+      exposure:
+        include: health,info,prometheus
+  health:
+    livenessstate:
+      enabled: true
+    readinessstate:
+      enabled: true
+  endpoint:
+    health:
+      probes:
+        enabled: true
+cache:
+  prefix-key: ${CACHE_PREFIX_KEY:vnta}
+  local:
+    ttl: ${CACHE_LOCAL_TTL:300}
+    maximum-size: ${CACHE_LOCAL_MAXIMUM_SIZE:200}
+mail:
+  mail-server: ${MAIL_MAIL_SERVER:SMTP}
+  mailgun:
+    api-key: ${MAIL_MAILGUN_API_KEY:api_key}
+    domain-name: ${MAIL_MAILGUN_DOMAIN_NAME:domain}
+    from: ${MAIL_MAILGUN_FROM:from}
+  smtp:
+    user: ${MAIL_SMTP_USER:user}
+    pass: ${MAIL_SMTP_PASS:pass}
+    domain-name: ${MAIL_SMTP_DOMAIN_NAME:domain}
+    port: ${MAIL_SMTP_PORT:test}
+    host: ${MAIL_SMTP_HOST:test}
+file:
+  dir: ${FILE_DIR:/data/html/static.dev.wiinvent.tv}
+  url: ${FILE_URL:https://static.dev.wiinvent.tv}
+  upload-type: ${FILE_UPLOAD_TYPE:s3}
+otp:
+  service-url: ${PARTNER_OTP_SERVICE_URL:http://localhost:8084}
+  authen-key: ${PARTNER_OTP_AUTHEN_KEY:key}
+firebase:
+  base-64-config: ${FIREBASE_BASE64CONFIG:base64}
+s3:
+  access-key: ${S3_ACCESS_KEY:test}
+  secret-key: ${S3_SECRET_KEY:test}
+  end-point: ${S3_END_POINT:test}
+  bucket-name: ${S3_BUCKET_NAME:test}
+springdoc:
+  swagger-ui:
+    path: /v1/it/vnta/doc/swagger.html
+    enabled: true
+    filter: true
+    operations-sorter: true
+    display-request-duration: true
+    tags-sorter: alpha
+  api-docs:
+    path: /it/project_4/doc/swagger.html
+    enabled: true
+  enable-spring-security: true
+  sort-converter:
+    enabled: true
+  model-converters:
+    pageable-converter:
+      enabled: true
+bot:
+  token: ${TELEGRAM_BOT_TOKEN:telegramToken}
+  chatId: ${TELEGRAM_BOT_CHAT_ID:telegramId}

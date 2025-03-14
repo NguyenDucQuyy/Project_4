@@ -1,1 +1,1 @@
-# lotusmile-product-service
+restaurant-service
