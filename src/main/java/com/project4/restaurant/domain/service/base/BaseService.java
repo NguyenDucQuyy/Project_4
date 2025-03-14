@@ -4,19 +4,16 @@ import com.google.common.collect.Lists;
 import com.project4.restaurant.domain.ModelMapper;
 import com.project4.restaurant.domain.entity.Sequence;
 import com.project4.restaurant.domain.factory.ProcessOTPFactory;
-import com.project4.restaurant.domain.repository.*;
 import com.project4.restaurant.domain.storage.*;
 import com.project4.restaurant.domain.service.LuaCacheService;
 import com.project4.restaurant.domain.storage.common.ConfigStorage;
 import com.project4.restaurant.domain.util.CacheKey;
 import com.project4.restaurant.domain.util.MapperUtil;
 import com.project4.restaurant.domain.util.RemoteCache;
-import jakarta.persistence.EntityManager;
 import jakarta.validation.Validator;
 import lombok.extern.log4j.Log4j2;
 import org.redisson.api.RedissonClient;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.data.mongodb.core.FindAndModifyOptions;
 import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.query.Criteria;
@@ -48,7 +45,6 @@ public class BaseService {
   @Autowired protected CacheKey cacheKey;
   @Autowired protected LuaCacheService luaCacheService;
   @Autowired protected RedissonClient redissonClient;
-  @Autowired protected EntityManager entityManager;
   @Autowired protected MapperUtil mapperUtil;
   @Autowired private ProcessOTPFactory processOTPFactory;
 

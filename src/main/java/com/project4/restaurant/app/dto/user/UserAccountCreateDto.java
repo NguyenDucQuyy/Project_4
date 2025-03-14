@@ -5,15 +5,11 @@ import com.project4.restaurant.domain.core.annotation.ValidEmail;
 import com.project4.restaurant.domain.core.annotation.ValidPhoneNumber;
 import com.project4.restaurant.domain.entity.type.AccountRole;
 import com.project4.restaurant.domain.entity.type.AccountState;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 import org.apache.logging.log4j.core.config.plugins.validation.constraints.NotBlank;
-
-import java.util.List;
 
 @Data
 public class UserAccountCreateDto {
@@ -53,9 +49,7 @@ public class UserAccountCreateDto {
   private String email;
 
   @NotNull(message = "Vui lòng chọn")
-  @Enumerated(EnumType.STRING)
   private AccountRole role;
 
-  @Enumerated(EnumType.STRING)
   private AccountState state;
 }

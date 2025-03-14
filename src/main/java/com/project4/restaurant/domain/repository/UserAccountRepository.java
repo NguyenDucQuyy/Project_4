@@ -20,6 +20,8 @@ public interface UserAccountRepository extends MongoResourceRepository<UserAccou
 
   UserAccount findByEmail(String email);
 
+  boolean existsByUsername(String username);
+
   boolean existsByEmail(String email);
 
   boolean existsByPhoneNumber(String phoneNumber);

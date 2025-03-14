@@ -5,8 +5,6 @@ import com.project4.restaurant.domain.core.annotation.ValidEmail;
 import com.project4.restaurant.domain.core.annotation.ValidPhoneNumber;
 import com.project4.restaurant.domain.entity.type.AccountRole;
 import com.project4.restaurant.domain.entity.type.AccountState;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -53,9 +51,7 @@ public class UserAccountUpdateDto {
   private String email;
 
   @NotNull(message = "Vui lòng chọn")
-  @Enumerated(EnumType.STRING)
   private AccountRole role;
 
-  @Enumerated(EnumType.STRING)
   private AccountState state;
 }

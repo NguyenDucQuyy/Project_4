@@ -90,9 +90,17 @@ public class UserAccountService extends BaseService implements UserDetailsServic
   }
 
   public UserAccountResponse createAccount(UserAccountCreateDto dto) {
+    boolean existedUsername = userStorage.existByUsername(dto.getUsername());
+    if (existedUsername) {
+      throw new ResourceFoundException("Username: " + dto.getUsername() + " đã tồn tại");
+    }
     boolean existedEmail = userStorage.existByEmail(dto.getEmail());
     if (existedEmail) {
       throw new ResourceFoundException("Email: " + dto.getEmail() + " đã tồn tại");
+    }
+    boolean existedPhoneNumber = userStorage.existsByPhoneNumber(dto.getPhoneNumber());
+    if (existedPhoneNumber) {
+      throw new ResourceFoundException("Số điện thoại: " + dto.getPhoneNumber() + " đã tồn tại");
     }
     UserAccount userAccount = new UserAccount();
     userAccount.setFullName(dto.getFullName());
@@ -112,18 +120,26 @@ public class UserAccountService extends BaseService implements UserDetailsServic
   public UserAccountResponse updateAccount(Long userId, UserAccountUpdateDto dto) {
     UserAccount userAccount = userStorage.findById(userId);
     userAccount.setFullName(dto.getFullName());
-    if(!userAccount.getUsername().equals(dto.getUsername())) {
+    if(userAccount.getUsername() == null || !userAccount.getUsername().equals(dto.getUsername())) {
+      boolean existedUsername = userStorage.existByUsername(dto.getUsername());
+      if (existedUsername) {
+        throw new ResourceFoundException("Username: " + dto.getUsername() + " đã tồn tại");
+      }
     }
     userAccount.setUsername(dto.getUsername());
     if(dto.getPassword() != null && !dto.getPassword().isEmpty()) {
       userAccount.setPassword(encoder.encode(dto.getPassword()));
     }
     if(userAccount.getPhoneNumber() == null || !userAccount.getPhoneNumber().equals(dto.getPhoneNumber())) {
+      boolean existedPhoneNumber = userStorage.existsByPhoneNumber(dto.getPhoneNumber());
+      if (existedPhoneNumber) {
+        throw new ResourceFoundException("Số điện thoại: " + dto.getPhoneNumber() + " đã tồn tại");
+      }
     }
     userAccount.setPhoneNumber(dto.getPhoneNumber());
     if(userAccount.getEmail() == null || !userAccount.getEmail().equals(dto.getEmail())) {
-      boolean isExistEmail = userStorage.existByEmail(dto.getEmail());
-      if (isExistEmail) {
+      boolean existedEmail = userStorage.existByEmail(dto.getEmail());
+      if (existedEmail) {
         throw new ResourceFoundException("Email: " + dto.getEmail() + " đã tồn tại");
       }
     }

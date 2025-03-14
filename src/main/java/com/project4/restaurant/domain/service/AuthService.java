@@ -64,7 +64,7 @@ public class AuthService extends BaseService {
   @Autowired
   private AuthService self;
 
-  public AuthService(AuthenticationManager authenticationManager, JwtTokenProvider jwtTokenProvider, RemoteCache remoteCache, UserAccountService userAccountService, CacheKey cacheKey, BaseService baseService, Validator validator, UserAccountRepository userAccountRepository, UserStorage userStorage, PasswordEncoder passwordEncoder, OtpService otpService) {
+  public AuthService(AuthenticationManager authenticationManager, JwtTokenProvider jwtTokenProvider, RemoteCache remoteCache, UserAccountService userAccountService, CacheKey cacheKey, BaseService baseService, Validator validator, UserStorage userStorage, PasswordEncoder passwordEncoder, OtpService otpService) {
     this.authenticationManager = authenticationManager;
     this.jwtTokenProvider = jwtTokenProvider;
     this.remoteCache = remoteCache;

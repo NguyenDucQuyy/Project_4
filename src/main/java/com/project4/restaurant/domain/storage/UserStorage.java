@@ -34,6 +34,10 @@ public class UserStorage extends BaseStorage {
   public UserAccount findByEmail(String email) {
     return userAccountRepository.findByEmail(email);
   }
+
+  public boolean existByUsername(String username) {
+    return userAccountRepository.existsByUsername(username);
+  }
   public boolean existByEmail(String email) {
     return userAccountRepository.existsByEmail(email);
   }

@@ -6,25 +6,20 @@ import com.project4.restaurant.domain.pojo.TeleInfo;
 import com.project4.restaurant.domain.repository.ConfigRepository;
 import com.project4.restaurant.domain.storage.BaseStorage;
 import com.project4.restaurant.domain.util.JsonParser;
-import jakarta.persistence.criteria.Predicate;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Component
 @Log4j2
 public class ConfigStorage extends BaseStorage {
-  private final ConfigRepository configRepository;
-
-  public ConfigStorage(ConfigRepository configRepository) {
-    this.configRepository = configRepository;
-  }
+  @Autowired
+  private ConfigRepository configRepository;
 
 //  public Page<Config> findAll(String key, Pageable pageable) {
 //    return configRepository.findAll(configSpecification(key), pageable);
@@ -73,16 +68,6 @@ public class ConfigStorage extends BaseStorage {
       }
     }
     return number;
-  }
-
-  public Specification<Config> configSpecification(String keyConfig) {
-    return (root, query, criteriaBuilder) -> {
-      List<Predicate> conditionLists = new ArrayList<>();
-      if (keyConfig != null) {
-        conditionLists.add(criteriaBuilder.like(root.get("keyConfig"), "%" + keyConfig + "%"));
-      }
-      return criteriaBuilder.and(conditionLists.toArray(new Predicate[0]));
-    };
   }
 
   public List<TeleInfo> getListTeleInfo() {
